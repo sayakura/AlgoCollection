@@ -1,0 +1,1 @@
+![image from github, tree traversal method](./imgfromleetcode.png)
