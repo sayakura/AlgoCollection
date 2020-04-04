@@ -25,8 +25,6 @@ bool star_platinum(const vector<vector<char> > &board,
   visited[r][c] = true;
   if (directions.empty())
      directions = get_directions();
-  if (curLen > word.length())
-    return false;
   if (board[r][c] == word[word.length() - curLen]) {
     if (curLen == 1) 
       return true;
