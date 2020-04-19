@@ -9,36 +9,32 @@ using namespace std;
 vector<int>    tp_sort(int vertices, vector<vector<int>> &edges) {
     vector<int> sortedOrder;
 
-    if (vertices <= 0) 
+    if (vertices <= 0 || edges.size() == 0) 
         return sortedOrder;
     // source: node that has no incomming edge and has only outgoing edges 
     // sink: node that has only incoming and no outgoing edge
 
     // # of incoming edges
-    unordered_map<int, int> inDegree;
+    unordered_map<int, int> degree;
     unordered_map<int, vector<int> > graph;
 
     // for BFS
     queue<int> sources;
 
-
-    // initailization
-    for (int i = 0; i < edges.size(); i++) {
-        int parent = edges[i][0];
-        inDegree[parent] = 0;
-        graph[parent] = {};
-    }
-
-    // build the graph
-    for (int i = 0; i < edges.size(); i++) {
-        int parent = edges[i][0];
-        int child = edges[i][1];
-        inDegree[child]++;
+    // initailization && build the graph
+    for (auto &eachEdge: edges) {
+        int parent = eachEdge[0];
+        int child = eachEdge[1];
+        if (!degree.count(parent)) {
+            degree[parent] = 0;
+            graph[parent] = {};
+        }
+        degree[child]++;
         graph[parent].push_back(child);
     }
 
     // find all the sources
-    for (auto d: inDegree) {
+    for (auto d: degree) {
         if (d.second == 0) 
             sources.push(d.first);
     }
@@ -50,13 +46,14 @@ vector<int>    tp_sort(int vertices, vector<vector<int>> &edges) {
 
         vector<int> children = graph[vertex];
         for (auto eachChild : children) {
-            inDegree[eachChild]--;
-            if (inDegree[eachChild] == 0) 
+            if (--degree[eachChild] == 0) 
                 sources.push(eachChild);
         }
     }
 
-    if (sortedOrder.size() != vertices) // if there's any cycle then .size() > vertices
+    // if there's any cycle then .size() > vertices
+    // but we should not trust what they pass in
+    if (sortedOrder.size() != degree.size()) 
         return {};
     return sortedOrder;
 }
