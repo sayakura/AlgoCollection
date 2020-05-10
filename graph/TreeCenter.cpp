@@ -70,37 +70,37 @@ int main() {
     vector<vector<int> > edges = { {1, 2}, {2, 3}, {3, 4}, {3, 6}, {5, 6}, {6, 7} };
     findTreeCenter(7, makeUndirectedAjacencyList(7, edges));
     cout << endl;
-/*
-    1 -- 2     6
-         |    /
-         3 - 4 - 5
-        / \
-       10  7 - 8
-           |
-           9
-*/
+    /*
+        1 -- 2     6
+            |    /
+            3 - 4 - 5
+            / \
+        10  7 - 8
+            |
+            9
+    */
     cout << "----------------" << endl;
     vector<vector<int> > edges2 = { {1, 2}, {2, 3}, {3, 4}, {3, 10}, {4, 5}, {4, 6}, {3, 7}, {7, 8}, {7, 9}};
     findTreeCenter(10, makeUndirectedAjacencyList(10, edges2));
     cout << endl;
-/*
-             1
-           /   \ 
-          2     3
-         /|\   /|\
-        4 5 6 7 8 9
-*/
+    /*
+                1
+            /   \ 
+            2     3
+            /|\   /|\
+            4 5 6 7 8 9
+    */
     cout << "----------------" << endl;
     vector<vector<int> > edges3 = { {1, 2}, {1, 3}, {2, 4}, {2, 5}, {2, 6}, {3, 7}, {3, 8}, {3, 9}};
     findTreeCenter(9, makeUndirectedAjacencyList(9, edges3));
     cout << endl;
-/*
-     1         4
-      \       /
-       2 - - 5
-      /       \
-    3          6
-*/
+    /*
+        1         4
+        \       /
+        2 - - 5
+        /       \
+        3          6
+    */
     cout << "----------------" << endl;
     vector<vector<int> > edges4 = { {1, 2}, {2, 3}, {2, 5}, {5, 4}, {5, 6}};
     findTreeCenter(6, makeUndirectedAjacencyList(6, edges4));
