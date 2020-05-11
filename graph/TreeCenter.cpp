@@ -84,7 +84,7 @@ int main() {
     findTreeCenter(10, makeUndirectedAjacencyList(10, edges2));
     cout << endl;
     /*
-                1
+              1
             /   \ 
             2     3
             /|\   /|\

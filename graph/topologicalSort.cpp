@@ -23,14 +23,14 @@ vector<int>    tp_sort(int vertices, vector<vector<int>> &edges) {
 
     // initailization && build the graph
     for (auto &eachEdge: edges) {
-        int parent = eachEdge[0];
-        int child = eachEdge[1];
-        if (!degree.count(parent)) {
-            degree[parent] = 0;
-            graph[parent] = {};
+        int u = eachEdge[0];
+        int v = eachEdge[1];
+        if (degree.find(u) == degree.end()) {
+            degree[u] = 0;
+            graph[u] = {};
         }
-        degree[child]++;
-        graph[parent].push_back(child);
+        degree[v]++;
+        graph[u].push_back(v);
     }
 
     // find all the sources

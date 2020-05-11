@@ -102,3 +102,4 @@ int main (void) {
     makeAjacencyStar(6, edges2);
     return 0;
 }
+
