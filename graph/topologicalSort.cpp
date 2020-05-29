@@ -51,7 +51,7 @@ vector<int>    tp_sort(int vertices, vector<vector<int>> &edges) {
         }
     }
 
-    // if there's any cycle then .size() > vertices
+    // if there's any cycle then .size() < vertices
     // but we should not trust what they pass in
     if (sortedOrder.size() != degree.size()) 
         return {};
