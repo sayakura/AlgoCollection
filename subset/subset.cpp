@@ -36,3 +36,20 @@ int main(int argc, char* argv[]) {
     cout << endl;
   }
 }
+
+void helper(vector<vector<int>> &ret, vector<int> cur, vector<int> &nums, int start) {
+    ret.push_back(cur);
+    for (int i = start; i < nums.size(); i++) { 
+        if (i > start && nums[i] == nums[i - 1]) continue ; // sort first 
+        cur.push_back(nums[i]);
+        helper(ret, cur, nums, i + 1);
+        cur.pop_back();
+    }
+}
+
+vector<vector<int>> subsets(vector<int>& nums) {
+    vector<vector<int>> ret;
+    // sort(nums.begin(), nums.end())
+    helper(ret, {}, nums, 0);
+    return ret;
+}
