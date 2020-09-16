@@ -4,6 +4,8 @@
         "vector": "cpp",
         "string": "cpp",
         "iosfwd": "cpp",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "utility": "cpp",
+        "deque": "cpp"
     }
 }
