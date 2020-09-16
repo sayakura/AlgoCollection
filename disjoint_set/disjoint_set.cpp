@@ -36,7 +36,7 @@ class disjoint_set {
             arr[xv].second++;
         }
     }
-    bool same(int x, int y) {
+    bool connected(int x, int y) {
         return find(x) == find(y);
     }
     int size() {
