@@ -43,3 +43,36 @@ class disjoint_set {
         return siz;
     }
 };
+
+
+class disjoint_set{
+    vector<int> parent;
+    vector<int> rank;
+    unsigned int size;
+public:
+    disjoint_set(int n) {
+        parent.assign(n, 0);
+        rank.assign(n, 0);
+        size = n;
+        for (int i = 0; i < n; i++)
+            parent[i] = i;
+    }
+    int find(int v) {
+       while (parent[v] != v){
+           parent[v] = parent[parent[v]];
+           v = parent[v];
+       }
+       return v;
+    }
+    int union_set(int a, int b) {
+        a = find(a);
+        b = find(b);
+        if (a != b) {
+            if (rank[a] < rank[b])
+                swap(a, b);
+            parent[b] = a;
+            if (rank[a] == rank[b])
+                rank[a]++;
+        }
+    }
+};
