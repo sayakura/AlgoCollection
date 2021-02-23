@@ -7,46 +7,32 @@
  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
  * };
  */
-#include <unordered_map>
-#include <queue>
-
 class Solution {
 public:
+    vector<vector<int>> nodes;
+    void dfs(TreeNode* root, int x, int y){
+        if(!root) return;
+        nodes.push_back({x, y, root->val});
+        if (root->left) dfs(root->left, x-1, y+1);
+        if (root->right) dfs(root->right, x+1, y+1);
+    }
+    
     vector<vector<int>> verticalTraversal(TreeNode* root) {
-        vector<vector<int>> ret;
-        unordered_map<int, vector<int>> ghm;
-        unordered_map<int, TreeNode *> hm;
-        int lastLeftMost = 0;
-        int lastRightMost = 0;
-        int level = 0;
-        
-        if (!root)
-            return ret;
-        hm[0] = root;
-        ghm[0].push_back(root->val);
-        while (hm.size()) {
-            unordered_map<int, TreeNode *> tmp;
-            for (int i = lastLeftMost; i <= lastRightMost; i++) {
-                if (hm[i]) {
-                    if (hm[i]->left) {
-                        tmp[i - 1] = hm[i]->left;
-                        ghm[i - 1].push_back(hm[i]->left->val);
-                        lastLeftMost = min(lastLeftMost, i - 1);
-                    }
-                    if (hm[i]->right) {
-                        tmp[i + 1] = hm[i]->right;
-                        ghm[i + 1].push_back(hm[i]->right->val);
-                        lastRightMost = max(lastRightMost, i + 1);
-                    }
-                }
+        dfs(root, 0, 0);
+        sort(nodes.begin(), nodes.end());
+        vector<vector<int>> res;
+
+        int curx = nodes[0][0];
+        res.push_back({ nodes[0][2] });
+        for (int i = 1; i< nodes.size(); ++i){
+            if(nodes[i][0] == curx)
+                res.back().push_back(nodes[i][2]);
+            else{
+                curx = nodes[i][0];
+                res.push_back({nodes[i][2]});
             }
-            hm = tmp;
         }
-        for (int i = lastLeftMost; i <= lastRightMost; i++) { 
-            if (ghm.count(i))
-                ret.push_back(ghm[i]);
-        }
-        return ret;        
+        return res;
     }
 };
 
@@ -55,3 +41,5 @@ int main () {
 
     return 0;
 }
+
+

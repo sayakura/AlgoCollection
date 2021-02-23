@@ -8,7 +8,14 @@ using namespace std;
 vector<int> parent;
 
 int find(int v) {
-    return parent[v] == -1 ? v : parent[v] = find(parent[v]);
+    while (parent[v] != -1) {
+        int t = parent[v];
+        parent[v] = parent[parent[v]];
+        if (parent[v] == -1) return t;
+        v = t;
+    }
+    return v;
+    // return parent[v] == -1 ? v : parent[v] = find(parent[v]);
 }
 
 // minimum range query 

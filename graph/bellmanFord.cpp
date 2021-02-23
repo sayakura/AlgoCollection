@@ -22,6 +22,23 @@ void bellmanFord(int N, vector<vector<pair<int, int>> > &adj, int src) {
             }
         }
     }
+
+    // // optimization
+    // for (;;) {
+        bool any = false;
+        for (int u = 0; u < N; u++) {
+            for (auto &[v, w] : adj[u]) {
+                int newd = dist[u] + w;
+                if (dist[u] < INT_MAX && newd < dist[v]) {
+                    dist[v] = newd;
+                    prev[v] = u;
+                    any = true;
+                }
+            }
+        }
+        if (!any) break ;
+    }
+
     // run it one last time check for negative cycle
     for (int u = 0; u < N; ++u) {
         cout << "From " << u << " to src: " << dist[u] << endl;
@@ -45,3 +62,44 @@ int main() {
     bellmanFord(V, adj, 0);
     return 0;
 }
+
+// SPFA
+
+/*
+const int INF = 1000000000;
+vector<vector<pair<int, int>>> adj;
+
+bool spfa(int s, vector<int>& d) {
+    int n = adj.size();
+    d.assign(n, INF);
+    vector<int> cnt(n, 0);
+    vector<bool> inqueue(n, false);
+    queue<int> q;
+
+    d[s] = 0;
+    q.push(s);
+    inqueue[s] = true;
+    while (!q.empty()) {
+        int v = q.front();
+        q.pop();
+        inqueue[v] = false;
+
+        for (auto edge : adj[v]) {
+            int to = edge.first;
+            int len = edge.second;
+
+            if (d[v] + len < d[to]) {
+                d[to] = d[v] + len;
+                if (!inqueue[to]) {
+                    q.push(to);
+                    inqueue[to] = true;
+                    cnt[to]++;
+                    if (cnt[to] > n)
+                        return false;  // negative cycle
+                }
+            }
+        }
+    }
+    return true;
+}
+*/  

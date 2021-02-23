@@ -1,4 +1,15 @@
 typedef pair<int, int> pii;
+
+// kruskals is bad when the graph is dense, since it has to sort all the edges
+/*
+    Kruskal's algorithm initially places all the nodes of the original graph isolated from each other,
+    to form a forest of single node trees, and then gradually merges these trees, combining at each 
+    iteration any two of all the trees with some edge of the original graph. Before the execution of the algorithm, 
+    all edges are sorted by weight (in non-decreasing order).
+    Then begins the process of unification: pick all edges from the first to the last (in sorted order), 
+    and if the ends of the currently picked edge belong to different subtrees, these subtrees are combined,
+    and the edge is added to the answer. After iterating through all the edges, all the vertices will belong to the same sub-tree, and we will get the answer.
+*/
 class Solution {
 public:
     int minCostConnectPoints(int n, vector<array<int, 3>> &edges) {

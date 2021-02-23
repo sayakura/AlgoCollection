@@ -76,3 +76,36 @@ public:
         }
     }
 };
+
+
+
+
+const AWS = require('aws-sdk');
+//*/ get reference to S3 client 
+var s3 = new AWS.S3();
+exports.handler =  async (event) => {
+     let encodedImage =JSON.parse(event.body).user_avatar;
+     let decodedImage = Buffer.from(encodedImage, 'base64');
+     var filePath = "avatars/" + event.queryStringParameters.username + ".jpg"
+     var params = {
+       "Body": decodedImage,
+       "Bucket": "find-my-mate-hasangi",
+       "Key": filePath  
+    };
+    s3.upload(params, function(err, data){
+       if(err) {
+           callback(err, null);
+       } else {
+           let response = {
+        "statusCode": 200,
+        "headers": {
+            "my_header": "my_value"
+        },
+        "body": JSON.stringify(data),
+        "isBase64Encoded": false
+    };
+           callback(null, response);
+    }
+    });
+    
+};
